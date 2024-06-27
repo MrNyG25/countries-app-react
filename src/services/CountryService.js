@@ -25,13 +25,14 @@ function CountryService() {
     console.log(res.data);
   }
 
+  const debounceGetFilteredCountries = _.debounce(async (query) => {
+    await getFilteredCountries(query);
+  }, 600);
+
   const handleSearchInput = (query) => {
-    console.log(`Searching for: ${query}`);
-    let bounce = _.debounce(async () => {
-        await getFilteredCountries(query);
-    }, 600)
-    bounce();
-    // ... you might want to call an API or perform other side effects here.
+
+    debounceGetFilteredCountries(query);
+
   };
   
 
